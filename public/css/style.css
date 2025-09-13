@@ -1,0 +1,414 @@
+main {
+  flex: 1;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #E0DDD8;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+
+/* Header Principal*/
+header {
+  background: #8B6B61;
+  color: #fff;
+  padding: 15px 20px;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+header h1 a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.8rem;
+}
+
+.search-form {
+  display: flex;
+  gap: 5px;
+}
+
+.search-form input {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+}
+
+.search-form button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  background: #F8F4F0;
+  color: #8B6B61;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-nova {
+  background: #D8A39D;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.3s, transform 0.2s;
+  display: inline-block;
+}
+
+.btn-nova:hover {
+  background: #B97C73;
+  transform: translateY(-2px);
+}
+
+/* Header Secundário*/
+.header-simple {
+  background: #8B6B61;
+  color: #fff;
+  padding: 15px 20px;
+  text-align: center;
+}
+
+.header-simple h1 {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.btn-voltar {
+  background: #D8A39D;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.btn-voltar:hover {
+  background: #B97C73;
+}
+
+/* Filtro por categoria */
+.filtro-lateral {
+  position: fixed;
+  top: 100px;
+  left: 0;
+  width: 220px;
+  background-color: rgba(245, 240, 225, 0.95);
+  border-radius: 0 10px 10px 0;
+  box-shadow: 2px 4px 10px rgba(0,0,0,0.1);
+  padding: 15px;
+  transition: transform 0.3s;
+  z-index: 1000;
+  transform: translateX(1);
+}
+
+.filtro-lateral.fechado {
+  transform: translateX(-220px);
+}
+
+.filtro-lateral .tags-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filtro-lateral .tag {
+  padding: 6px 12px;
+  border-radius: 12px;
+  background-color: #F5F0E1;
+  color: #8B6B61;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.filtro-lateral .tag:hover,
+.filtro-lateral .tag.active {
+  background-color: #D9A77B;
+  color: white;
+}
+
+/* Botão de toggle do filtro*/
+.toggle-btn {
+  position: absolute;
+  top: 10px;
+  right: -25px;
+  width: 25px;
+  height: 25px;
+  background-color: #D9A77B;
+  color: white;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Cards*/
+.receitas-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 280px));
+  justify-content: center;
+  gap: 5px;
+  margin: 25px auto;
+  max-width: none;
+}
+
+.card {
+  background: #F8F4F0;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s;
+  width: 100%;
+  max-width: 220px;
+  margin: 0 auto;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h3 a {
+  text-decoration: none;
+  color: #D8A39D;
+}
+
+.card p {
+  margin: 6px 0;
+}
+
+.card-link {
+  display: block;
+  color: inherit;     
+  text-decoration: none;
+  height: 100%;
+  width: 100%;
+}
+
+/* Paginação */
+.paginacao {
+  text-align: center;
+  margin: 25px 0;
+}
+
+.paginacao a {
+  margin: 0 6px;
+  padding: 6px 12px;
+  background: #F8F4F0;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #8B6B61;
+  font-weight: bold;
+}
+
+.paginacao a.ativo {
+  background: #B7C4A9;
+  color: #fff;
+}
+
+/* Footer */
+footer {
+  background: #8B6B61;
+  color: #fff;
+  text-align: center;
+  padding: 18px 0;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Formulário de Nova Receita*/
+main.nova-receita {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: #E0DDD8;
+}
+
+main.nova-receita .form-nova {
+  background: #F8F4F0;
+  padding: 30px 25px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-nova input,
+.form-nova select,
+.form-nova textarea {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical; 
+}
+
+.form-nova input::placeholder,
+.form-nova textarea::placeholder {
+  color: #999;
+}
+
+.form-nova .btn-primary {
+  background: #D8A39D;
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.form-nova .btn-primary:hover {
+  background: #B97C73;
+  transform: translateY(-2px);
+}
+
+
+/* Detalhes da receita */
+main.container.receita-detalhes {
+  max-width: 1200px;
+  width: 90%;
+  margin: 40px auto;
+  padding: 20px;
+  background: #F8F4F0;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;  
+  box-sizing: border-box;
+}
+/* Coluna da receita */
+main.container.receita-detalhes .detalhes-receita {
+  flex: 2;
+  min-width: 300px;
+}
+
+/* Coluna de comentários */
+main.container.receita-detalhes .area-comentarios {
+  flex: 1;
+  min-width: 250px;
+  background: #fff7f3;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 700px;
+  overflow-y: auto;
+}
+
+main.container.receita-detalhes h2 {
+  font-size: 2rem;
+  color: #D8A39D;
+  margin-bottom: 10px;
+}
+
+main.container.receita-detalhes h3 {
+  font-size: 1.2rem;
+  color: #8B6B61;
+  margin-bottom: 8px;
+  margin-top: 15px;
+}
+
+main.container.receita-detalhes p {
+  font-size: 1rem;
+  margin: 4px 0;
+}
+
+main.container.receita-detalhes .detalhes-receita ul {
+  list-style-type: disc;
+  margin-left: 20px;
+  padding-left: 10px;
+}
+
+main.container.receita-detalhes .detalhes-receita ul li {
+  margin: 6px 0;
+}
+
+main.container.receita-detalhes .area-comentarios ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+main.container.receita-detalhes .area-comentarios ul li {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+main.container.receita-detalhes #formComentario {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+main.container.receita-detalhes #formComentario input,
+main.container.receita-detalhes #formComentario textarea {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical; 
+}
+
+main.container.receita-detalhes #formComentario input::placeholder,
+main.container.receita-detalhes #formComentario textarea::placeholder {
+  color: #999;
+}
+
+main.container.receita-detalhes #formComentario button {
+  background: #D8A39D;
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+main.container.receita-detalhes #formComentario button:hover {
+  background: #B97C73;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 900px) {
+  main.container.receita-detalhes {
+    flex-direction: column;
+  }
+
+  main.container.receita-detalhes .area-comentarios {
+    max-height: none;
+  }
+}

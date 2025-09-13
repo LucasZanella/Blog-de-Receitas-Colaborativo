@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Blog de Receitas</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+  <%- include("partials/header") %>
+
+    <main>
+      <div id="filtroLateral" class="filtro-lateral fechado">
+        <button id="toggleFiltro" class="toggle-btn">→</button>
+        <div class="tags-container">
+          <h4>Filtrar por categoria</h4>
+          <span class="tag active" data-categoria="">Todas</span>
+          <span class="tag" data-categoria="Massas">Massas</span>
+          <span class="tag" data-categoria="Sobremesas">Sobremesas</span>
+          <span class="tag" data-categoria="Vegano">Vegano</span>
+          <span class="tag" data-categoria="Carnes">Carnes</span>
+          <span class="tag" data-categoria="Saladas">Saladas</span>
+        </div>
+      </div>
+      <div class="receitas-lista">
+        <% receitas.forEach(receita=> { %>
+          <div class="card">
+            <a href="/receitas/<%= receita._id %>" class="card-link">
+              <h3>
+                <%= receita.titulo %>
+              </h3>
+              <p><strong>Categoria:</strong>
+                <%= receita.categoria %>
+              </p>
+              <p><strong>Autor:</strong>
+                <%= receita.autor %>
+              </p>
+            </a>
+          </div>
+          <% }) %>
+      </div>
+
+      <div class="paginacao">
+        <% for (let i=1; i <=totalPages; i++) { %>
+          <a href="/?page=<%= i %>" class="<%= i === currentPage ? 'ativo' : '' %>">
+            <%= i %>
+          </a>
+          <% } %>
+      </div>
+    </main>
+
+    <%- include("partials/footer") %>
+
+      <script>
+        // Fecha e abre o filtro
+        const filtroLateral = document.getElementById("filtroLateral");
+        const toggleBtn = document.getElementById("toggleFiltro");
+        const tags = document.querySelectorAll(".filtro-lateral .tag");
+        const cards = document.querySelectorAll(".receitas-lista .card");
+
+        toggleBtn.addEventListener("click", () => {
+          filtroLateral.classList.toggle("fechado");
+          toggleBtn.textContent = filtroLateral.classList.contains("fechado") ? "→" : "←";
+        });
+
+        // Filtro por categoria
+        tags.forEach(tag => {
+          tag.addEventListener("click", () => {
+            tags.forEach(t => t.classList.remove("active"));
+            tag.classList.add("active");
+
+            const categoria = tag.dataset.categoria;
+            cards.forEach(card => {
+              const cardCategoria = card.querySelector("p strong").nextSibling.textContent.trim();
+              card.style.display = (!categoria || cardCategoria === categoria) ? "block" : "none";
+            });
+          });
+        });
+
+      </script>
+</body>
+
+</html>

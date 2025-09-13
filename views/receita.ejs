@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Blog de Receitas</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <%- include("partials/headerSimple", { tituloPagina: "Detalhes da Receita" }) %>
+
+    <main class="container receita-detalhes">
+      <div class="detalhes-receita">
+        <h2>
+          <%= receita.titulo %>
+        </h2>
+        <p><strong>Categoria:</strong>
+          <%= receita.categoria %>
+        </p>
+        <p><strong>Autor:</strong>
+          <%= receita.autor %>
+        </p>
+
+        <h3>Ingredientes:</h3>
+        <ul>
+          <% receita.ingredientes.forEach(i=> { %>
+            <li>
+              <%= i %>
+            </li>
+            <% }) %>
+        </ul>
+
+        <h3>Instruções:</h3>
+        <p>
+          <%= receita.instrucoes %>
+        </p>
+      </div>
+
+      <div class="area-comentarios">
+        <h3>Comentários</h3>
+        <ul>
+          <% comentarios.forEach(c=> { %>
+            <li><strong>
+                <%= c.autor %>:
+              </strong>
+              <%= c.texto %>
+            </li>
+            <% }) %>
+        </ul>
+
+        <form id="formComentario" action="/receitas/<%= receita._id %>/comentarios" method="POST">
+          <input type="text" name="autor" placeholder="Seu nome" required>
+          <textarea name="texto" placeholder="Seu comentário" required></textarea>
+          <button type="submit">Comentar</button>
+        </form>
+      </div>
+    </main>
+
+    <%- include("partials/footer") %>
+
+      <script>
+        // Validação dos inputs de comentário //
+        document.addEventListener("DOMContentLoaded", () => {
+          const formComentario = document.getElementById("formComentario");
+
+          if (formComentario) {
+            formComentario.addEventListener("submit", (e) => {
+              const autor = formComentario.autor.value.trim();
+              const texto = formComentario.texto.value.trim();
+              let erros = [];
+
+              if (autor.length < 2) {
+                erros.push("O nome deve ter pelo menos 2 caracteres.");
+              }
+              if (texto.length < 5) {
+                erros.push("O comentário deve ter pelo menos 5 caracteres.");
+              }
+
+              if (erros.length > 0) {
+                e.preventDefault();
+                alert(erros.join("\n"));
+              }
+            });
+          }
+        });
+
+        // limpa formulário de comentário ao enviar ou ao voltar
+        document.addEventListener("DOMContentLoaded", () => {
+          const btnVoltar = document.querySelector(".btn-voltar");
+          if (btnVoltar) {
+            btnVoltar.addEventListener("click", () => {
+              if (formComentario) formComentario.reset();
+            });
+          }
+        });
+      </script>
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Blog de Receitas</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <%- include("partials/headerSimple", { tituloPagina: "Nova Receita" }) %>
+
+        <main class="container nova-receita">
+            <form id="formReceita" action="/nova" method="POST" class="form-nova">
+                <input type="text" id="titulo" name="titulo" placeholder="Título" required>
+                <input type="text" id="autor" name="autor" placeholder="Autor" required>
+
+                <select id="categoria" name="categoria" required>
+                    <option value="">Selecione a categoria</option>
+                    <option value="Massas">Massas</option>
+                    <option value="Sobremesas">Sobremesas</option>
+                    <option value="Vegano">Vegano</option>
+                    <option value="Carnes">Carnes</option>
+                    <option value="Saladas">Saladas</option>
+                </select>
+
+                <textarea id="ingredientes" name="ingredientes" placeholder="Ingredientes (separados por vírgula)"
+                    required></textarea>
+                <textarea id="instrucoes" name="instrucoes" placeholder="Instruções" required></textarea>
+
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </form>
+        </main>
+
+        <%- include("partials/footer") %>
+
+            <script>
+                //-- Validação do Form --//
+                document.addEventListener("DOMContentLoaded", () => {
+                    const form = document.getElementById("formReceita");
+
+                    form.addEventListener("submit", (e) => {
+                        let erros = [];
+
+                        const titulo = document.getElementById("titulo").value.trim();
+                        const autor = document.getElementById("autor").value.trim();
+                        const categoria = document.getElementById("categoria").value;
+                        const ingredientes = document.getElementById("ingredientes").value
+                            .split(",")
+                            .map(i => i.trim())
+                            .filter(i => i);
+                        const instrucoes = document.getElementById("instrucoes").value.trim();
+
+                        if (titulo.length < 4 || titulo.length > 35) {
+                            erros.push("Título deve ter entre 4 e 35 caracteres.");
+                        }
+                        if (!autor) {
+                            erros.push("Autor é obrigatório.");
+                        }
+
+                        const categoriasValidas = ['Massas', 'Sobremesas', 'Vegano', 'Carnes', 'Saladas'];
+                        if (!categoriasValidas.includes(categoria)) {
+                            erros.push("Categoria inválida.");
+                        }
+
+                        if (ingredientes.length === 0) {
+                            erros.push("A receita deve ter pelo menos 1 ingrediente.");
+                        }
+
+                        if (instrucoes.length < 10) {
+                            erros.push("Instruções devem ter pelo menos 10 caracteres.");
+                        }
+
+                        if (erros.length > 0) {
+                            e.preventDefault();
+                            alert(erros.join("\n"));
+                        }
+                    });
+
+                    // limpa ao clicar em voltar
+                    const btnVoltar = document.querySelector(".btn-voltar");
+                    if (btnVoltar) {
+                        btnVoltar.addEventListener("click", () => {
+                            form.reset();
+                        });
+                    }
+
+                });
+            </script>
+</body>
+
+</html>
